@@ -9,10 +9,12 @@ const API = axios.create({
 })
 
 async function getTrendingMoviesPreview(){
-    const {data} = await API('trending/movie/day?&language=es');
+    const {data} = await API('trending/movie/day?&language=es-DO');
     
     const movies = data.results
     console.log({data, movies});
+
+    trendingMoviesPreviewList.innerHTML = "";
 
     movies.forEach(movie => {
         const movieImg = document.createElement('img');
@@ -33,12 +35,14 @@ async function getCategoriesMoviesPreview(){
     
     const categories = data.genres;
     console.log({data, categories});
+
+    categoriesPreviewList.innerHTML = "";
     
     categories.forEach(category => {
         const categoryTitle = document.createElement('h3');
         categoryTitle.classList.add('category-title');
         categoryTitle.setAttribute('id', 'id' + category.id);
-        const categoryTitleText = document.createTextNode(category.name);
+        const categoryTitleText = document.createTextNode(`${category.name == 'Suspense' ? 'Suspenso' : category.name}`);
 
         const categoryContainer = document.createElement('div');
         categoryContainer.classList.add('category-container');
